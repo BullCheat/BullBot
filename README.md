@@ -20,7 +20,7 @@ Then, in DM:
 Removing images also works by deleting the original message sent to add the image (i.e. the one sent by admin in dm)
 # Building
 ```
-go build github.com/bullcheat/bullbot -ldflags="-s -w" # Cuts binary size by half
+go build -ldflags="-s -w" github.com/bullcheat/bullbot
 ```
 It is highly recommended to compress the binary executable with `upx` as this will cut the size by another 2/3.
 ```
