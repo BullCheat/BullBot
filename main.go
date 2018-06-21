@@ -57,13 +57,7 @@ func initDiscord() {
 	dg.Close()
 }
 func initDB() {
-	dir, e := os.Getwd()
-	if e != nil {
-		panic(e.Error())
-	}
-	var err error
-	println(dir)
-	db, err = sql.Open("sqlite3", "file:" + DBFile + "?cache=shared")
+	db, err := sql.Open("sqlite3", "file:" + DBFile + "?cache=shared")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -123,25 +117,21 @@ func tryAdding(s *discordgo.Session, channel *discordgo.Channel, message *discor
 				} else {
 					actions :=  make([]bool, len(content)-1)
 					for i := 1; i < len(content); i++ {
-						var err error
-						if err != nil {
-							continue
-						}
 						res := db.QueryRow("SELECT EXISTS(SELECT id FROM ranks WHERE userid = ?)", content[i])
 						var exists bool
-						err = res.Scan(&exists)
+						err := res.Scan(&exists)
 						if err != nil {
 							println(err.Error())
 							return
 						}
 						actions[i-1] = !exists
 						if exists {
-							_, err = db.Exec("DELETE FROM ranks WHERE userid = ?", content[i])
+							_, err := db.Exec("DELETE FROM ranks WHERE userid = ?", content[i])
 							if err != nil {
 								println("X " + err.Error())
 							}
 						} else {
-							_, err =db.Exec(
+							_, err :=db.Exec(
 								"INSERT INTO ranks (userid, rank) VALUES (?, ?)",
 								content[i], 10)
 							if err != nil {
