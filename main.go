@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
@@ -39,18 +38,18 @@ func main() {
 func initDiscord() {
 	dg, err := discordgo.New("Bot " + Token)
 	if err != nil {
-		fmt.Println("Erreur lors de la création de la session discord :", err)
+		println("Erreur lors de la création de la session discord :", err)
 		return
 	}
 	dg.AddHandler(messageCreate)
 	dg.AddHandler(messageDelete)
 	err = dg.Open()
 	if err != nil {
-		fmt.Println("Erreur lors de l'ouverture de la connexion", err)
+		println("Erreur lors de l'ouverture de la connexion", err)
 		return
 	}
 
-	fmt.Println("Le bot a démarré. CTRL + C pour fermer.")
+	println("Le bot a démarré. CTRL + C pour fermer.")
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
 	<-sc
@@ -64,7 +63,7 @@ func initDB() {
 	}
 	var err error
 	println(dir)
-	db, err = sql.Open("sqlite3", "file:" + dir + "/" + DBFile + "?cache=shared")
+	db, err = sql.Open("sqlite3", "file:" + DBFile + "?cache=shared")
 	if err != nil {
 		panic(err.Error())
 	}
