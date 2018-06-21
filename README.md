@@ -1,11 +1,11 @@
 # BullBot
 Simple discord image bot in go
 # Usage
-```
+```sh
 ./bullbot --token=<Discord bot token>
 ```
 First, open sqlite browser on the generated config.db and execute
-```
+```sql
 INSERT INTO ranks (userid, rank) VALUES ('YOUR-DISCORD#1234', 10)
 ```
 Then, in DM:
@@ -19,10 +19,10 @@ Then, in DM:
 
 Removing images also works by deleting the original message sent to add the image (i.e. the one sent by admin in dm)
 # Building
-```
+```go
 go build -ldflags="-s -w" github.com/bullcheat/bullbot
 ```
 It is highly recommended to compress the binary executable with `upx` as this will cut the size by another 2/3.
-```
+```sh
 upx bullbot
 ```
