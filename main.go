@@ -57,7 +57,8 @@ func initDiscord() {
 	dg.Close()
 }
 func initDB() {
-	db, err := sql.Open("sqlite3", "file:" + DBFile + "?cache=shared")
+	var err error
+	db, err = sql.Open("sqlite3", "file:" + DBFile + "?cache=shared")
 	if err != nil {
 		panic(err.Error())
 	}
